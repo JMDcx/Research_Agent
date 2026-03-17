@@ -29,9 +29,23 @@ from langgraph.config import get_store
 from mcp import McpError
 from tavily import AsyncTavilyClient
 
-from open_deep_research.configuration import Configuration, SearchAPI
-from open_deep_research.prompts import summarize_webpage_prompt
-from open_deep_research.state import ResearchComplete, Summary
+from research_agent.configuration import Configuration, SearchAPI
+from research_agent.prompts import summarize_webpage_prompt
+from research_agent.state import ResearchComplete, Summary
+
+def get_base_url_for_model(model_name: str, config: RunnableConfig) -> Optional[str]:
+    """Get base URL for OpenAI-compatible models from environment or config."""
+    should_get_from_config = os.getenv("GET_API_KEYS_FROM_CONFIG", "false")
+    model_name = model_name.lower()
+    if not model_name.startswith("openai:"):
+        return None
+
+    if should_get_from_config.lower() == "true":
+        configurable = config.get("configurable", {}) if config else {}
+        return configurable.get("openai_base_url") or os.getenv("OPENAI_BASE_URL")
+
+    return os.getenv("OPENAI_BASE_URL")
+
 
 ##########################
 # Tavily Search Tool Utils
@@ -87,6 +101,7 @@ async def tavily_search(
         model=configurable.summarization_model,
         max_tokens=configurable.summarization_model_max_tokens,
         api_key=model_api_key,
+        base_url=get_base_url_for_model(configurable.summarization_model, config),
         tags=["langsmith:nostream"]
     ).with_structured_output(Summary).with_retry(
         stop_after_attempt=configurable.max_structured_output_retries

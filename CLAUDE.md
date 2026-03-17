@@ -13,7 +13,7 @@ Open Deep Research is a configurable, fully open-source deep research agent that
 - `LICENSE` - MIT license
 - `.env.example` - Environment variables template (not tracked)
 
-### Core Implementation (`src/open_deep_research/`)
+### Core Implementation (`src/research_agent/`)
 - `deep_researcher.py` - Main LangGraph implementation (entry point: `deep_researcher`)
 - `configuration.py` - Configuration management and settings
 - `state.py` - Graph state definitions and data structures  

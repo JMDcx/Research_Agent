@@ -18,7 +18,7 @@ If you need to ask a question, follow these guidelines:
 - Use bullet points or numbered lists if appropriate for clarity. Make sure that this uses markdown formatting and will be rendered correctly if the string output is passed to a markdown renderer.
 - Don't ask for unnecessary information, or information that the user has already provided. If you can see that the user has already provided the information, do not ask for it again.
 
-Respond in valid JSON format with these exact keys:
+Respond in valid json format with these exact keys:
 "need_clarification": boolean,
 "question": "<question to ask the user to clarify the report scope>",
 "verification": "<verification message that we will start research>"
@@ -52,6 +52,11 @@ The messages that have been exchanged so far between yourself and the user are:
 Today's date is {date}.
 
 You will return a single research question that will be used to guide the research.
+
+Respond in valid json format with this exact key:
+"research_brief": "<a detailed and concrete research question written from the user's perspective>"
+
+Return only a json object and no additional commentary.
 
 Guidelines:
 1. Maximize Specificity and Detail
@@ -337,7 +342,7 @@ Your summary should be significantly shorter than the original content but compr
 
 Present your summary in the following format:
 
-```
+```json
 {{
    "summary": "Your summary here, structured with appropriate paragraphs or bullet points as needed",
    "key_excerpts": "First important quote or excerpt, Second important quote or excerpt, Third important quote or excerpt, ...Add more excerpts as needed, up to a maximum of 5"
@@ -363,6 +368,7 @@ Example 2 (for a scientific article):
 ```
 
 Remember, your goal is to create a summary that can be easily understood and utilized by a downstream research agent while preserving the most critical information from the original webpage.
+Return a valid json object with exactly the keys "summary" and "key_excerpts".
 
 Today's date is {date}.
 """

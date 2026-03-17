@@ -1,10 +1,8 @@
 [project]
-name = "open_deep_research"
+name = "Research_Agent"
 version = "0.0.16"
 description = "Planning, research, and report generation."
-authors = [
-    { name = "Lance Martin" }
-]
+
 readme = "README.md"
 license = { text = "MIT" }
 requires-python = ">=3.10"
@@ -54,10 +52,10 @@ requires = ["setuptools>=73.0.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
-packages = ["open_deep_research", "legacy", "tests"]
+packages = ["research_agent", "legacy", "tests"]
 
 [tool.setuptools.package-dir]
-"open_deep_research" = "src/open_deep_research"
+"research_agent" = "src/research_agent"
 "legacy" = "src/legacy"
 "tests" = "tests"
 

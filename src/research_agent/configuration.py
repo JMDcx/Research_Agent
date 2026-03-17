@@ -117,6 +117,16 @@ class Configuration(BaseModel):
             }
         }
     )
+    openai_base_url: Optional[str] = Field(
+        default=None,
+        optional=True,
+        metadata={
+            "x_oap_ui_config": {
+                "type": "text",
+                "description": "Optional base URL for OpenAI-compatible APIs. Applies to models with the 'openai:' prefix."
+            }
+        }
+    )
     # Model Configuration
     summarization_model: str = Field(
         default="openai:gpt-4.1-mini",
